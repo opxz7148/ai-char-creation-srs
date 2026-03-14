@@ -4,21 +4,19 @@
 \section{Background}
 \label{section:background}
 
-<TIP: 
-A background chapter in a book serves the purpose of providing essential context, information, or history that is relevant
-to the overall understanding of the book's subject matter. This chapter typically appears early in the book and aims to set the
-stage for the reader by offering background details that are crucial for comprehending the main narrative.
-/>
+Character creation has become a fundamental aspect of the modern gaming experience, particularly in Role-Playing Games (RPGs) and multiplayer titles. As hardware capabilities have advanced, character creation systems have grown increasingly detailed, offering players greater freedom to express their identity and personal aesthetic through their in-game avatar.
 
+Currently, most video game character creation systems rely on a slider and dropdown paradigm, where players manually adjust individual appearance parameters such as jaw width, cheek height, eye spacing, and skin tone. While this approach gives players precise control, the complexity scales directly with the number of available parameters. As character systems become more detailed, players are presented with an ever-growing array of sliders and options.
+
+Recent advances in Large Language Models (LLMs) have demonstrated that natural language can serve as a reliable interface for producing structured, machine-readable output. Models such as Llama, GPT-4o, and Gemini are capable of interpreting open-ended descriptive text and returning well-formed JSON with consistent values — a capability that has matured significantly in recent years through techniques such as constrained decoding and few-shot prompting.
+
+\newpage
 \section{Problem Statement}
 \label{section:problem-statement}
 
-<TIP: 
-A problem statement refers to a clear central issue,
-challenge, or question that the project aims to address or explore. It is a
-declaration that highlights the specific problem the author intends to examine,
-discuss, or solve throughout the course of the project.
-/>
+As established in the background, current character creation systems can become overwhelming and unintuitive when players are faced with a large number of sliders and abstract numerical values. This complexity often causes confusion and requires significant time investment before a player can produce a character that matches their expectations. Furthermore, players who lack familiarity with facial anatomy or artistic terminology may struggle to understand what parameters like "zygomatic width" or "nasal bridge depth" actually affect visually, frequently resulting in a character that does not reflect their original intent.
+
+While reusable character creation systems such as Unreal Engine's Mutable and MetaHuman already exist for game developers, none of them provide a natural language interface. There is currently no standardized, reusable tool within the Unreal Engine ecosystem that bridges natural language input with existing character parameter systems.
 
 \section{Solution Overview}
 \label{section:solution-overview}
