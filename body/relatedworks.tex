@@ -4,26 +4,88 @@
 \section{Competitor Analysis}
 \label{section:competitor-analysis}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{examples/asana-competitive-landscape.jpg}
-    \caption{Competitive Landscape by Asana}
-\end{figure}
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.5\textwidth]{examples/asana-competitive-landscape.jpg}
+%     \caption{Competitive Landscape by Asana}
+% \end{figure}
 
-<TIP: 
-Refer to an article "How to create a competitive analysis (with
-examples)" by Asana. You can use the Competitor Landscape or
-Competitor Analysis Framework for your project.
-/>
+\subsection*{Category 1: Character Creation Systems}
+
+\textbf{MetaHuman Creator} is a tool developed by Epic Games and integrated 
+directly into Unreal Engine that allows developers to create 
+photorealistic digital human characters. \cite{metahuman} It provides 
+a preset-based workflow where developers blend between pre-scanned 
+facial structures and refine details using built-in sliders. Characters 
+produced are fully rigged and ready for animation within Unreal Engine. 
+However, MetaHuman Creator is a developer-facing tool used during 
+production, not a runtime system that players interact with.
+
+\textbf{Unreal Engine's Mutable} is a runtime character customization system 
+that generates dynamic skeletal meshes, materials, and textures during 
+gameplay. It is designed to be integrated into games to allow players 
+to customize their characters at runtime. While Mutable provides a 
+flexible and powerful foundation for character customization, it 
+exposes its parameter system directly to the player through 
+developer-built UI, and provides no mechanism for natural language 
+input.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Feature} & \textbf{MetaHuman} & \textbf{Mutable} & 
+\textbf{This Project} \\
+\hline
+Natural Language Input & \texttimes & \texttimes & \checkmark \\
+Runtime Character Customization & \texttimes & \checkmark & \checkmark \\
+Unreal Engine Integration & \checkmark & \checkmark & \checkmark \\
+Works with Any Mesh & \texttimes & \texttimes & \checkmark \\
+Drop-in Plugin & \texttimes & \texttimes & \checkmark \\
+Offline Support & \texttimes & \texttimes & \checkmark \\
+\hline
+\end{tabular}
+\caption{Comparison: Character Creation Systems}
+\end{table}
+
+%-----------------------------------------------
+
+\subsection*{Category 2: AI-Assisted Character Creation in Games}
+
+\textbf{Where Winds Meet} is an action RPG that features an AI-assisted 
+character creation system called Smart Customization. The system 
+allows players to generate a character face by either uploading 
+a photograph or recording their voice, after which the game 
+produces a face preset that approximates the input. Players can 
+then further refine the result using the game's standard slider 
+system. This is the closest existing example to the problem this 
+project addresses, as it uses AI to reduce the burden of manual 
+character creation. However, the system is tightly embedded within 
+a single game and is not available as a reusable tool for other 
+developers. It also does not support free-form natural language 
+text as an input method.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Feature} & \textbf{Where Winds Meet} & \textbf{This Project} \\
+\hline
+Natural Language Text Input & \texttimes & \checkmark \\
+AI-Assisted Character Creation & \checkmark & \checkmark \\
+Reusable Across Games & \texttimes & \checkmark \\
+Unreal Engine Integration & \texttimes & \checkmark \\
+Drop-in Plugin & \texttimes & \checkmark \\
+Offline Support & \texttimes & \checkmark \\
+Works with Any Mesh & \texttimes & \checkmark \\
+Image/Voice input & \checkmark & \texttimes \\
+
+\hline
+\end{tabular}
+\caption{Comparison: AI-Assisted Character Creation in Games}
+\end{table}
 
 \section{Literature Review}
 \label{section:literature-review}
 
-<TIP: Review academic papers or technical reports
-that are relevant to your project.
-For each source, briefly summarize its key findings and
-then explain how it informs your own design or implementation decisions.
-The goal is not just to describe what others have done,
-but to build a justification for your own technical choices.
-For example, if you chose a particular algorithm or architecture,
-cite the work that supports that decision. />
+Brown et al. (2020) \cite{brown2020languagemodelsfewshotlearners} introduced the few-shot prompting method for Large Language Models (LLMs), demonstrated through experiments on the GPT-3 model. Their work showed that an LLM is able to perform new tasks by conditioning on a small number of input-output examples provided directly in the prompt, without any modification to the model's parameters. Their findings showed that few-shot prompting achieved performance close to or matching state-of-the-art fine-tuned models across a range of tasks. This established few-shot prompting as a cost-effective alternative to fine-tuning, particularly in settings where large amounts of labeled training data are unavailable. In this project, few-shot prompting serves as the primary mechanism for the character creation system, guiding the LLM to interpret a player's natural language description and produce character parameter values in the correct format and value range. This approach eliminates the need for a large task-specific dataset or any model fine-tuning, making it practical for deployment in both local and cloud inference settings.
