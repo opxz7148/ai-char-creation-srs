@@ -55,18 +55,97 @@ could affect the reliability of the cloud fallback feature.
 
 \section{User Stories and Use Cases}
 \label{section:user-stories-use-cases}
-<TIP: For each stakeholder, write user stories that capture what
-they need from the system: "As a [stakeholder], I want to [action] so that [benefit]."
-For your most important user stories, expand them into use cases.
-A use case is a detailed description of how a system
-interacts with an external entity (such as a user or another system) to
-accomplish a specific goal. Use cases provide a high-level view of the
-functionality of a system and help in capturing and documenting its
-requirements from the perspective of end users.
 
-Make sure to use the
-appropriate type of use case for each scenario (brief, casual, and fully-dressed
-use case). />
+\subsection*{User Stories}
+
+The following user stories capture the needs of each stakeholder group with
+respect to the system.
+
+\textbf{Game Developer.}
+As a game developer, I want to register my skeletal mesh's blend shape names
+through a configuration asset so that the plugin knows which parameters to
+populate without requiring changes to my existing assets.
+As a game developer, I want to select between local and cloud LLM inference at
+setup time so that I can choose the mode appropriate for my project's
+connectivity and quality requirements.
+As a game developer, I want the plugin to fire a Blueprint event containing the
+parsed parameter values so that I can handle how those values are applied within
+my own game logic.
+As a game developer, I want the plugin to fall back automatically to an
+alternative LLM or default values when the primary mode fails so that character
+creation does not block the player.
+
+\textbf{Player.}
+As a player, I want to type a plain-text description of my character so that I
+do not have to manually adjust individual sliders or understand abstract
+parameter names.
+As a player, I want the generated character to visually reflect the description
+I provided so that the result matches my intent.
+As a player, I want character generation to complete within a reasonable time so
+that it does not disrupt the flow of starting the game.
+
+\subsection*{Use Cases}
+
+Three use cases are identified as central to the system's behaviour. They are
+described below using brief, casual, and fully-dressed formats respectively,
+in order of increasing complexity.
+
+\textbf{UC-01 (Brief): Register Character Parameters.}
+The game developer creates a Data Asset in their Unreal Engine project, lists
+the semantic parameter names and their corresponding blend shape identifiers,
+and saves the asset. The plugin reads this configuration at runtime to determine
+which parameters it may populate.
+
+\textbf{UC-02 (Casual): Automatic LLM Fallback.}
+The plugin attempts to send the player's description to the local llama.cpp
+inference server. If the server is unreachable or returns a malformed response,
+the plugin reattempts the request against the configured cloud provider — GPT-4o
+mini, Claude Haiku, or Gemini Flash, in priority order. If all providers fail,
+the plugin fires the Blueprint event with default parameter values so that
+character creation is not blocked. The game developer is notified of the failure
+mode through an Unreal Engine log warning.
+
+\begin{table}[h]
+\centering
+\caption{UC-03 (Fully Dressed): Generate Character from Natural Language}
+\begin{tabular}{|p{0.25\textwidth}|p{0.65\textwidth}|}
+\hline
+\textbf{Field} & \textbf{Description} \\
+\hline
+Use Case ID & UC-03 \\
+\hline
+Use Case Name & Generate Character from Natural Language \\
+\hline
+Actor & Player (primary); LLM inference backend (secondary) \\
+\hline
+Preconditions & The game developer has configured a valid Data Asset with at
+least one registered parameter. The plugin is active and at least one LLM mode
+(local or cloud) is reachable. \\
+\hline
+Main Success Scenario &
+1. The player types a character description into the natural language input
+field and confirms. \newline
+2. The plugin constructs a prompt containing the registered parameter list,
+few-shot examples, and the player's description. \newline
+3. The prompt is sent to the active LLM backend. \newline
+4. The LLM returns a JSON object mapping each registered parameter to a
+numerical value between 0 and 1. \newline
+5. The plugin validates the response structure. \newline
+6. The plugin fires a Blueprint event with the parsed parameter map. \newline
+7. The game developer's Blueprint handler applies the values to the skeletal
+mesh's morph targets. \newline
+8. The character mesh updates to reflect the player's description. \\
+\hline
+Extensions &
+3a. The local server is unreachable --- fallback to cloud (see UC-02). \newline
+5a. The response fails validation --- the plugin retries once with an updated
+prompt; on second failure, default values are used. \\
+\hline
+Postconditions & The skeletal mesh reflects parameter values derived from the
+player's description, or default values if all inference attempts failed. \\
+\hline
+\end{tabular}
+\end{table}
 
 \section{Use Case Diagrams}
 \label{section:use-case-diagrams}
