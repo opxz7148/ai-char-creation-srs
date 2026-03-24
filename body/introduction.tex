@@ -31,26 +31,19 @@ The plugin is designed as a drop-in tool for game developers. Once integrated, i
 \label{subsection:features}
 
 \subsubsection{For Game Developers (directly)}
-\begin{enumerate}
-    \item \textbf{Drop-in Plugin Integration}: The plugin can be added to any Unreal Engine project without modifying the engine or existing game code.
+\begin{enumerate}    
+    \item \textbf{Parameter Registration}: Developers register their character parameters and map them to their character mesh through a configuration asset, also provide a preset parameter mapping for standard model provider.
     
-    \item \textbf{Parameter Registration}: Developers register their character parameters and map them to their character mesh through a configuration asset.
-    
-    \item \textbf{Preset Configurations}: Built-in presets for popular character systems are provided to reduce initial setup time.
-    
-    \item \textbf{LLM Mode Selection}: Developers choose between local inference or cloud-based API at setup time based on their project requirements.
-    
-    \item \textbf{Automatic Fallback}: The plugin automatically falls back to alternative LLM options or default values if the primary mode fails.
-    
+    \item \textbf{LLM Mode Selection and automatic fallback}: Developers choose between local inference or cloud-based API at setup time based on their project requirements. Also when cloud API are unavailable it also provide a fallback to local model
+        
     \item \textbf{Blueprint Event Integration}: The plugin fires a Blueprint event with parsed parameter values, allowing developers to handle character application in their own way.
 \end{enumerate}
 
 \subsubsection{For Players (indirectly)}
 \begin{enumerate}
-    \item \textbf{Natural Language Input}: Players describe their desired character appearance in plain text instead of manually adjusting sliders and numerical values.
-    
-    \item \textbf{Automatic Character Generation}: Character appearance parameters are interpreted and applied automatically from the player's text description.
-    
+
+    \item \textbf{Character creation from natural language}: Players describe their desired character appearance in plain text instead of manually adjusting sliders and numerical values. Character decription are constructed into prompt then interpreted result from LLM and apply tp the model automatically
+
     \item \textbf{Flexible Description Style}: The plugin accepts both explicit descriptions and implied or nuanced expressions.
 \end{enumerate}
 
