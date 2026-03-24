@@ -11,10 +11,11 @@
 *.log
 *.dvi
 *.ps
+*.gz
 out/
 
 # PDF output (optional - uncomment to ignore)
-# *.pdf
+*.pdf
 
 # Compiled binaries
 *.o
