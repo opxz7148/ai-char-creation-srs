@@ -3,12 +3,54 @@
 
 \section{Stakeholder Analysis}
 \label{section:stakeholder-analysis}
-<TIP: List your stakeholders for your project here/>
 
-Stakeholders are individuals, groups, or entities that
-have an interest, concern, or stake in a particular project, decision,
-organization, or system. These are individuals or groups who can affect or be
-affected by the outcomes of your project.
+Stakeholders are individuals, groups, or entities that have an interest in, or
+are affected by, the outcomes of a project. The plugin involves
+five distinct stakeholder groups, each with different relationships to the
+system and different expectations of its behaviour.
+
+\textbf{Game Developer (Direct User).} The game developer is the primary
+technical user of the plugin. This stakeholder integrates the plugin into an
+Unreal Engine 5 project, defines which blend shape and morph target parameters
+the plugin may control, and selects the LLM operating mode — local inference via
+llama.cpp or cloud fallback through a supported provider. The game developer is
+responsible for exposing the plugin's character creation widget within the game's
+user interface and for configuring any API credentials required for cloud
+operation. Their principal concern is that the plugin integrates cleanly as a
+drop-in component without requiring modifications to existing skeletal mesh
+assets or animation blueprints.
+
+\textbf{Player (Indirect User).} The player interacts with the system
+exclusively through the natural-language character creation interface presented
+at runtime. This stakeholder has no awareness of the underlying LLM or parameter
+mapping mechanism; they expect to describe a character in plain text and receive
+a visually faithful result on the skeletal mesh. The player's primary concern is
+expressiveness — that the system correctly interprets descriptive terms relating
+to facial structure, proportions, and appearance — and responsiveness, in that
+the generation latency does not disrupt the flow of gameplay.
+
+\textbf{Project Team.} The project is developed by two core developers
+responsible for the plugin architecture, LLM integration, and parameter mapping
+pipeline. A third team member contributes to dataset curation and evaluation,
+ensuring that the prompt--parameter mapping is validated against a representative
+range of character descriptions and skeletal mesh configurations. The team's
+collective interest is in delivering a system that is technically sound,
+reproducible, and suitable for academic assessment.
+
+\textbf{Academic Advisors.} The primary academic advisor provides guidance on
+research methodology, system design, and evaluation criteria. A co-advisor is
+yet to be confirmed. The advisors' interest lies in ensuring the project meets
+the academic rigour required for a senior project submission, including clear
+problem framing, traceable requirements, and a principled evaluation of the
+system's performance against its stated objectives.
+
+\textbf{LLM API Providers.} OpenAI, Anthropic, and Google are external
+stakeholders whose cloud inference APIs — GPT-4o mini, Claude Haiku, and Gemini
+Flash respectively — serve as the cloud fallback pathway when local inference is
+unavailable or insufficient. These providers are not directly involved in the
+project but impose constraints through their API rate limits, pricing policies,
+and terms of service. Changes to any provider's API contract or availability
+could affect the reliability of the cloud fallback feature.
 
 
 \section{User Stories and Use Cases}
