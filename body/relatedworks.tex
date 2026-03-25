@@ -84,6 +84,46 @@ Image/Voice input & \checkmark & \texttimes \\
 \caption{Comparison: AI-Assisted Character Creation in Games}
 \end{table}
 
+\subsection*{Category 3: AI-Powered 3D Asset Generation Tools}
+
+\textbf{Meshy} is a generative AI platform that allows developers and 
+artists to produce 3D models, textures, and animations from text 
+prompts or reference images. Given a natural language description 
+such as ``a warrior with heavy armor,'' Meshy generates a complete 
+3D mesh with PBR textures and supports auto-rigging for humanoid 
+characters. Generated assets can be exported in formats compatible 
+with Unreal Engine, such as FBX and GLB.
+
+While Meshy demonstrates that natural language can be used to drive 
+3D character output, its approach is fundamentally different from 
+the problem this project addresses. Meshy generates an entirely new 
+mesh on each invocation, meaning the output has no consistent 
+topology, no predefined blend shapes, and no reusable parameter 
+space. It is a content pipeline tool used by developers during 
+production, not a runtime system that players interact with during 
+gameplay. Furthermore, generated meshes cannot be directly mapped 
+to a semantic parameter schema, making Meshy incompatible with 
+morph-target-based character customization systems.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Feature} & \textbf{Meshy} & \textbf{This Project} \\
+\hline
+Natural Language Input         & \checkmark & \checkmark \\
+Runtime Player-Facing          & \texttimes & \checkmark \\
+Works with Existing Mesh       & \texttimes & \checkmark \\
+Consistent Blend Shape Output  & \texttimes & \checkmark \\
+Unreal Engine Integration      & \texttimes & \checkmark \\
+Drop-in Plugin                 & \texttimes & \checkmark \\
+Offline Support                & \texttimes & \checkmark \\
+\hline
+\end{tabular}
+\caption{Comparison: AI-Powered 3D Asset Generation Tools}
+\end{table}
+\newpage
+
 \section{Literature Review}
 \label{section:literature-review}
 
