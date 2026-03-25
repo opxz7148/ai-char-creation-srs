@@ -52,41 +52,58 @@ project but impose constraints through their API rate limits, pricing policies,
 and terms of service. Changes to any provider's API contract or availability
 could affect the reliability of the cloud fallback feature.
 
-
+\newpage
 \section{User Stories and Use Cases}
 \label{section:user-stories-use-cases}
 
 The following user stories capture the needs of each stakeholder group with
 respect to the system.
 
-\textbf{Game Developer.}
-As a game developer, I want to register my skeletal mesh's blend shape names
-through a configuration asset so that the plugin knows which parameters to
-populate without requiring changes to my existing assets.
-As a game developer, I want to select between local and cloud LLM inference at
-setup time so that I can choose the mode appropriate for my project's
-connectivity and quality requirements.
-As a game developer, I want the plugin to fire a Blueprint event containing the
-parsed parameter values so that I can handle how those values are applied within
-my own game logic.
-As a game developer, I want the plugin to fall back automatically to an
-alternative LLM or default values when the primary mode fails so that character
-creation does not block the player.
+\subsection{Game Developer.}
+\begin{enumerate}[label=\textbf{US-D-\arabic*.}, leftmargin=*, align=left]
+    \item As a game developer, I want to register my skeletal mesh's blend shape names through a configuration asset so that the plugin knows which parameters to
+    populate without requiring changes to my existing assets.
+    \item As a game developer, I want to select between local and cloud LLM inference at
+    setup time so that I can choose the mode appropriate for my project's
+    connectivity and quality requirements.
+    \item As a game developer, I want the plugin to fire a Blueprint event containing the
+    parsed parameter values so that I can handle how those values are applied within
+    my own game logic.
+    \item As a game developer, I want the plugin to fall back automatically to an
+    alternative LLM or default values when the primary mode fails so that character
+    creation does not block the player.
+    \item As a game developer, I want to select a preset configuration 
+    for popular character systems so that I can reduce initial setup 
+    time without manually registering every parameter from scratch.
+    
+    \item As a game developer, I want to provide my API key through 
+    a configuration file so that cloud LLM services can be accessed 
+    securely without hardcoding credentials into my project.
+    
+    \item As a game developer, I want the plugin to fire a Blueprint 
+    event when generation fails so that I can handle the error 
+    gracefully within my own game logic and inform the player 
+    accordingly.
+\end{enumerate}
 
-\textbf{Player.}
-As a player, I want to type a plain-text description of my character so that I
-do not have to manually adjust individual sliders or understand abstract
-parameter names.
-As a player, I want the generated character to visually reflect the description
-I provided so that the result matches my intent.
-As a player, I want character generation to complete within a reasonable time so
-that it does not disrupt the flow of starting the game.
+\subsection{Player.}
+\begin{enumerate}[label=\textbf{US-P-\arabic*.}, leftmargin=*, align=left]
+    \item As a player, I want to type a plain-text description of my character so that I
+    do not have to manually adjust individual sliders or understand abstract
+    parameter names.
+    \item As a player, I want the generated character to visually reflect the description
+    I provided so that the result matches my intent.
+    \item As a player, I want character generation to complete within a reasonable time so
+    that it does not disrupt the flow of starting the game.
+    \item As a player, I want to see a visual indicator while my 
+    character is being generated so that I am aware the system is 
+    processing my input and has not frozen.
+    \item As a player, I want to be able to regenerate my character 
+    with a new description if the result does not match my intent 
+    so that I can refine my character before starting the game.
+\end{enumerate}
 
 \subsection*{Use Cases}
-
-Three use cases are identified as central to the system's behaviour. They are
-described below using brief, casual, and fully-dressed formats respectively,
-in order of increasing complexity.
 
 \textbf{UC-01 (Brief): Register Character Parameters.}
 The game developer creates a Data Asset in their Unreal Engine project, lists
@@ -103,7 +120,7 @@ the plugin fires the Blueprint event with default parameter values so that
 character creation is not blocked. The game developer is notified of the failure
 mode through an Unreal Engine log warning.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
 \caption{UC-03 (Fully Dressed): Generate Character from Natural Language}
 \begin{tabular}{|p{0.25\textwidth}|p{0.65\textwidth}|}
@@ -157,8 +174,8 @@ Also provide the written description for each use case. />
 showcase a detailed design of a specific page or a sitemap of your application.
 See an example below./>
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{examples/user-interface-design.png}
-    \caption{User Interface Design}
-\end{figure}
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{examples/user-interface-design.png}
+%     \caption{User Interface Design}
+% \end{figure}
