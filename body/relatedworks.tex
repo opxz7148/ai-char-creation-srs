@@ -11,7 +11,6 @@
 % \end{figure}
 
 \subsection*{Category 1: Character Creation Systems}
-
 \textbf{MetaHuman Creator} is a tool developed by Epic Games and integrated 
 directly into Unreal Engine that allows developers to create 
 photorealistic digital human characters. \cite{metahuman} It provides 
@@ -49,7 +48,7 @@ Offline Support & \texttimes & \texttimes & \checkmark \\
 \end{table}
 
 %-----------------------------------------------
-
+\newpage
 \subsection*{Category 2: AI-Assisted Character Creation in Games}
 
 \textbf{Where Winds Meet} is an action RPG that features an AI-assisted 
@@ -88,6 +87,19 @@ Image/Voice input & \checkmark & \texttimes \\
 \section{Literature Review}
 \label{section:literature-review}
 
-Gallotta et al. (2024) \cite{Gallotta_2024} conducted a comprehensive survey on LLM applications across the game industry. Their work demonstrated that LLMs are an active and growing research topic in game development, with notable applications in areas such as Non-Player Character (NPC) behavior and dynamic storytelling. However, the survey does not examine the use of LLMs in player-facing character creation systems, suggesting that this remains a largely unexplored direction within the field. This gap motivates the present project, which applies LLMs to the character creation problem as a reusable plugin for Unreal Engine.
+\subsubsection{Character Parameterization}
 
-Brown et al. (2020) \cite{brown2020languagemodelsfewshotlearners} introduced the few-shot prompting method for Large Language Models (LLMs), demonstrated through experiments on the GPT-3 model. Their work showed that an LLM is able to perform new tasks by conditioning on a small number of input-output examples provided directly in the prompt, without any modification to the model's parameters. Their findings showed that few-shot prompting achieved performance close to or matching state-of-the-art fine-tuned models across a range of tasks. This established few-shot prompting as a cost-effective alternative to fine-tuning, particularly in settings where large amounts of labeled training data are unavailable. In this project, few-shot prompting serves as the primary mechanism for the character creation system, guiding the LLM to interpret a player's natural language description and produce character parameter values in the correct format and value range. This approach eliminates the need for a large task-specific dataset or any model fine-tuning, making it practical for deployment in both local and cloud inference settings.
+Lewis et al. (2014) \cite{lewis2014blendshape} presented a state-of-the-art report on blendshape facial models, a dominant technique for parameterizing character appearance in games and film. Blendshapes work by storing deformed mesh targets and blending between them using weight values between 0 and 1 at runtime, where each weight corresponds to a single adjustable parameter such as jaw width or cheek height. The report highlights a key complexity challenge — even a relatively simple character model can have more than 45 blendshape sliders to adjust, an interface too large to fit on a single screen. This complexity makes blendshape-based character creation systems unintuitive and overwhelming for players, directly motivating this project's approach of accepting natural language descriptions as input in place of manual slider adjustment. \newline
+
+\subsubsection{Prompt Engineering and Structured Output}
+
+Brown et al. (2020) \cite{brown2020languagemodelsfewshotlearners} introduced the few-shot prompting method for Large Language Models (LLMs), demonstrated through experiments on the GPT-3 model. Their work showed that an LLM is able to perform new tasks by conditioning on a small number of input-output examples provided directly in the prompt, without any modification to the model's parameters. Their findings showed that few-shot prompting achieved performance close to or matching state-of-the-art fine-tuned models across a range of tasks. This established few-shot prompting as a cost-effective alternative to fine-tuning, particularly in settings where large amounts of labeled training data are unavailable. In this project, few-shot prompting serves as the primary mechanism for the character creation system, guiding the LLM to interpret a player's natural language description and produce character parameter values in the correct format and value range. This approach eliminates the need for a large task-specific dataset or any model fine-tuning, making it practical for deployment in both local and cloud inference settings. \newline
+
+Geng et al. (2025) \cite{geng2025jsonschemabenchrigorousbenchmarkstructured} presented JSONSchemaBench, a comprehensive benchmark that evaluates six constrained decoding frameworks for generating structured JSON output from LLMs across 10,000 real-world JSON schemas. Their study confirmed that constrained decoding has emerged as the dominant and most reliable method for enforcing structured output, with most frameworks guaranteeing constraint compliance at the token generation level, physically preventing malformed output from being produced. Notably, their evaluation explicitly includes both local inference frameworks such as llama.cpp and cloud-based providers such as OpenAI and Gemini as validated options for structured output generation. This project draws on these findings in selecting appropriate structured output mechanisms — constrained decoding frameworks are considered for local inference, while cloud providers with native JSON schema enforcement are considered as alternatives, ensuring reliable character parameter output regardless of the chosen deployment mode.
+Gallotta et al. (2024) \cite{Gallotta_2024} conducted a comprehensive survey on LLM applications across the game industry. Their work demonstrated that LLMs are an active and growing research topic in game development, with notable applications in areas such as Non-Player Character (NPC) behavior and dynamic storytelling. However, the survey does not examine the use of LLMs in player-facing character creation systems, suggesting that this remains a largely unexplored direction within the field. This gap motivates the present project, which applies LLMs to the character creation problem as a reusable plugin for Unreal Engine. \newline
+
+\subsubsection{Large Language Models in Games}
+
+Drake \& Dong (2025) \cite{drake2025realtimeworldcraftinggenerating} proposed a framework that integrates LLMs into an interactive game engine, allowing players to define new game behaviors through natural language descriptions. Their system translates player input into a constrained Domain-Specific Language (DSL) that is then applied to the game engine at runtime. Their findings demonstrated that it is feasible to use LLMs to produce structured output for direct integration into a game engine, with few-shot prompting identified as a necessary technique for generating complex and accurate outputs. While their work focuses on game behavior and spell crafting, this project applies the same core approach — natural language input, structured output, and few-shot prompting — to the character creation domain as a reusable plugin for Unreal Engine. \newline
+
+
