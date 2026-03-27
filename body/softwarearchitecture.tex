@@ -85,4 +85,40 @@ Internet required          & \texttimes & \texttimes & \texttimes \\
 \end{table}
 
 \subsection{Evaluation}
-<TIP: Describe the metrics you plan to use to evaluate your AI model. />
+The evaluation of this project focuses on two primary aspects: the accuracy of the LLM in producing character parameter values that match the intended character description, and the reliability of the structured output produced by the model.
+
+\textbf{Output Accuracy}
+Output accuracy is evaluated using Mean Absolute Error (MAE), which measures the average deviation between the parameter values produced by the LLM and the expected ground truth values extracted from the benchmark dataset. MAE is computed individually for each registered character parameter across all test presets, then averaged into a single overall score representing the model's general accuracy. All character parameter values are normalized to a range of 0 to 1, making MAE scores directly comparable across parameters. The evaluation is further broken down by prompt style — detailed, vague, and implied — to assess how description style affects output accuracy. The following thresholds are used to interpret results:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Overall MAE} & \textbf{Interpretation} \\
+\hline
+$\leq 0.10$ & Good \\
+$0.10 <$ MAE $\leq 0.20$ & Acceptable \\
+$> 0.20$ & Poor \\
+\hline
+\end{tabular}
+\caption{MAE threshold interpretation}
+\end{table}
+
+\newpage
+\textbf{Performance}
+Inference performance is measured differently depending on the deployment mode. For cloud inference, Time to First Token (TTFT) is recorded as it reflects the perceived responsiveness from the player's perspective. For local inference, total response time is used instead, since the JSON output is short and generation completes quickly. The target performance thresholds are defined as follows:
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Mode} & \textbf{Metric} & \textbf{Target} \\
+\hline
+Local inference  & Total response time & $\leq 8$ seconds \\
+Cloud inference  & Time to first token & $\leq 2$ seconds \\
+\hline
+\end{tabular}
+\caption{Performance targets by inference mode}
+\end{table}
+
+\textbf{Evaluation Dataset}
+All accuracy metrics are computed against a benchmark dataset of approximately 40 to 50 character presets with known ground truth parameter values, as described in Section 4.3.1. Each preset is paired with multiple prompts across three description styles, giving a total of approximately 120 to 150 individual test cases. Both local and cloud model candidates are evaluated separately against the same dataset to enable direct comparison.
