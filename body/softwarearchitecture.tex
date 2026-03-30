@@ -4,21 +4,24 @@
 \section{System Architecture Overview}
 \label{section:architecture-overview}
 \begin{figure}[h]
+    \label{fig:system-diagram}
     \centering
     \includegraphics[width=1\textwidth]{/diagram/system-diagram.png}
     \caption{System overview diagram}
 \end{figure}
 
-This application is developed as a plugin for Unreal Engine. The main workflow begins when a player enters a natural language description at the character creation screen. The plugin constructs a prompt based on the player's input and sends it to an LLM inference service, which operates in one of two modes — online or local — depending on the configuration set by the game developer. The response returned by the LLM is then passed to an adapter layer, which parses the output and converts it into character parameter values. These values are applied to the character's blend shape targets, and the resulting appearance is reflected in a real-time preview shown to the player.
+This application is developed as a plugin for Unreal Engine. The main workflow begins when a player enters a natural language description at the character creation screen. The plugin constructs a prompt based on the player's input and sends it to an LLM inference service, which operates in one of two modes — online or local — depending on the configuration set by the game developer. The response returned by the LLM is then passed to an adapter layer, which parses the output and converts it into character parameter values. These values are applied to the character's blend shape targets, and the resulting appearance is reflected in a real-time preview shown to the player. System diagram are shown in folowing figure \ref{fig:system-diagram}
 
+\clearpage
 
 \section{Software Design}
 \label{section:software-design}
-
+UML Sequence Diagram shown in figure \ref{fig:seq-diagram} showing flow of application in the main use case where user input prompt and generate a character as mention in previous section \ref{section:architecture-overview}
 \begin{figure}[h]
+    \label{fig:seq-diagram}
     \centering
     \includegraphics[width=1\textwidth]{assets/diagram/sequence-diagram.png}
-    \caption{System overview diagram}
+    \caption{Sequence diagram of player generating character}
 \end{figure}
 
 
@@ -26,6 +29,7 @@ This application is developed as a plugin for Unreal Engine. The main workflow b
 \label{section:ai-data-design}
 
 \subsection{Data Sources and Collection}
+\label{subsection:data-source-col}
 
 This project does not require a dataset for model training or fine-tuning, as the system relies entirely on prompt engineering with pre-trained Large Language Models. All character interpretation capability is derived from the model's existing knowledge rather than task-specific training data.
 
@@ -40,7 +44,7 @@ For evaluation purposes, a benchmark dataset of approximately 40 to 50 character
 \subsection{Model Design}
 
 
-As stated in the previous section, this project relies entirely on pre-trained Large Language Models and does not require any model training or fine-tuning. Since the system supports two inference modes — local and cloud — the choice of model varies depending on the mode configured by the developer. Candidate models for each mode are presented below.
+As stated in section \ref{subsection:data-source-col}, this project relies entirely on pre-trained Large Language Models and does not require any model training or fine-tuning. Since the system supports two inference modes — local and cloud — the choice of model varies depending on the mode configured by the developer. Candidate models for each mode are presented below.
 
 The two most critical factors in model selection for this project are the ability to produce reliable structured output in JSON format, and inference performance in terms of response time. For local models, resource consumption must also be considered, as the model runs directly on the player's machine and must operate within reasonable hardware constraints.
 \subsubsection*{Cloud Models}
@@ -49,18 +53,17 @@ The two most critical factors in model selection for this project are the abilit
 \centering
 \begin{tabular}{|l|c|c|c|}
 \hline
-\textbf{Feature} & \textbf{GPT-4o mini} & \textbf{Gemini 2.0 Flash} & 
-\textbf{Claude Haiku 3.5} \\
+\textbf{Feature} & \textbf{GPT-5.4 nano} & \textbf{Gemini 2.5 Flash} & 
+\textbf{Claude Haiku 4.5} \\
 \hline
-Parameter count         & Undisclosed & Undisclosed & Undisclosed \\
-Native JSON mode        & \checkmark  & \checkmark  & \texttimes  \\
-Instruction following   & Excellent   & Good        & Excellent   \\
-Nuanced descriptions    & Good        & Good        & Excellent   \\
-Time to first token     & $\sim$2s    & $\sim$1s    & $\sim$1.5s  \\
-Internet required       & \checkmark  & \checkmark  & \checkmark  \\
+Native JSON mode      & \checkmark  & \checkmark  & \checkmark  \\
+Instruction following & Good        & Good        & Excellent   \\
+Nuanced descriptions  & Good        & Good        & Excellent   \\
+Time to first token   & 0.6s        & 0.5s        & 0.7s        \\
+Context window        & 400K        & 1M          & 200K        \\
 \hline
 \end{tabular}
-\caption{Cloud LLM model comparison}
+\caption{Cloud LLM model comparison (source: Artificial Analysis \cite{aa_gpt54nano,aa_gemini25flash,aa_claudehaiku45})}
 \end{table}
 
 \newpage
@@ -73,12 +76,10 @@ Internet required       & \checkmark  & \checkmark  & \checkmark  \\
 \textbf{Feature} & \textbf{Llama 3.2 3B} & \textbf{Phi-3.5 Mini} & 
 \textbf{Gemma 2 2B} \\
 \hline
-Parameter count            & 3B         & 3.8B       & 2B         \\
-GBNF constrained decoding  & \checkmark & \checkmark & \checkmark \\
-Instruction following      & Excellent  & Moderate   & Moderate   \\
-Avg. tokens per second     & $\sim$22   & $\sim$18   & $\sim$25   \\
-Minimum RAM                & 4GB        & 4GB        & 2GB        \\
-Internet required          & \texttimes & \texttimes & \texttimes \\
+Parameter count            & 3B          & 3.8B        & 2B \\
+GBNF constrained decoding  & \checkmark  & \checkmark  & \checkmark \\
+Instruction following      & Excellent   & Moderate    & Moderate \\
+Minimum RAM                & 4GB         & 4GB         & 2GB \\
 \hline
 \end{tabular}
 \caption{Local LLM model comparison}
@@ -121,4 +122,4 @@ Cloud inference  & Time to first token & $\leq 2$ seconds \\
 \end{table}
 
 \textbf{Evaluation Dataset}
-All accuracy metrics are computed against a benchmark dataset of approximately 40 to 50 character presets with known ground truth parameter values, as described in Section 4.3.1. Each preset is paired with multiple prompts across three description styles, giving a total of approximately 120 to 150 individual test cases. Both local and cloud model candidates are evaluated separately against the same dataset to enable direct comparison.
+All accuracy metrics are computed against a benchmark dataset of approximately 40 to 50 character presets with known ground truth parameter values, as described in Section \ref{subsection:data-source-col} Each preset is paired with multiple prompts across three description styles, giving a total of approximately 120 to 150 individual test cases. Both local and cloud model candidates are evaluated separately against the same dataset to enable direct comparison.
