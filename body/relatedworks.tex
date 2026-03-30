@@ -37,6 +37,14 @@ exposes its parameter system directly to the player through
 developer-built UI, and provides no mechanism for natural language 
 input.
 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{/relate-work/mutable.jpg}
+    \caption{Example project that integrate Unreal Engine Mutable for character customization system}
+    \cite{mutableSource}
+\end{figure}
+
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|c|c|c|}
@@ -69,6 +77,22 @@ character creation. However, the system is tightly embedded within
 a single game and is not available as a reusable tool for other 
 developers. It also does not support free-form natural language 
 text as an input method.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{/relate-work/wwm.jpg}
+    \caption{Where Winds Meet Smart character customization interface, User can upload their face image, which game will extract facial feature and create character from}
+    \label{fig:wwm-img}
+    \cite{wwm-img}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{/relate-work/wwm.png}
+    \caption{Where Winds Meet Smart character customization interface, User can recording their voice with reference text which game will identify character trait from it}
+    \label{fig:wwm-voice}
+    \cite{wherewindmeetsource}
+\end{figure}
 
 \begin{table}[h]
 \centering
@@ -110,9 +134,14 @@ mesh on each invocation, meaning the output has no consistent
 topology, no predefined blend shapes, and no reusable parameter 
 space. It is a content pipeline tool used by developers during 
 production, not a runtime system that players interact with during 
-gameplay. Furthermore, generated meshes cannot be directly mapped 
-to a semantic parameter schema, making Meshy incompatible with 
-morph-target-based character customization systems.
+gameplay. Furthermore, generated model mesh doesn't come with a blend shape parameter, which cause character customization that base on this parameter won't work with model from Meshy.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{/relate-work/meshy.png}
+    \caption{Meshy AI interface}
+    \cite{meshy-aisource}
+\end{figure}
 
 \begin{table}[h]
 \centering
@@ -129,6 +158,7 @@ Drop-in Plugin                 & \texttimes & \checkmark \\
 \end{tabular}
 \caption{Comparison: AI-Powered 3D Asset Generation Tools}
 \end{table}
+
 
 \newpage
 
