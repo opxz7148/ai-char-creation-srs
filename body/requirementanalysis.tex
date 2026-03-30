@@ -156,18 +156,35 @@ player's description, or default values if all inference attempts failed. \\
 
 \section{Use Case Diagrams}
 \label{section:use-case-diagrams}
-<TIP: Include a UML Use Case Diagram that shows all actors and
-their relationships to the use cases you described.
-Also provide the written description for each use case. />
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{assets/diagram/use_case_diagram.png}
+    \caption{Use Case Diagram}
+    \label{fig:use-case-diagram}
+\end{figure}
 
+\newpage
 \section{User Interface Design}
 \label{section:user-interface-design}
-<TIP: Put the initial design of your application here. You can
-showcase a detailed design of a specific page or a sitemap of your application.
-See an example below./>
+Since our project aims to be a system that integrates with games developed using the Unreal Engine, it doesn't have its own dedicated UI. However, the following figure demonstrates how end-user would see the Interface in games that use our proposed system.
 
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{examples/user-interface-design.png}
-%     \caption{User Interface Design}
-% \end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[height=7cm]{relate-work/EldenRing}
+    \caption{Dark fantasy game (Elden Ring-style)}
+    \label{fig:mockup-a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[height=7cm]{relate-work/CyberPunk}
+    \caption{Cyberpunk game (Cyberpunk 2077-style)}
+    \label{fig:mockup-b}
+  \end{subfigure}
+  \caption{Mock-up of the proposed system's natural language interface
+           overlaid on the Unreal Engine Mutable character creation UI,
+           as seen in game (A) a dark fantasy title and (B) a cyberpunk title.}
+  \label{fig:mockup}
+\end{figure}
