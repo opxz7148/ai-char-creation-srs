@@ -36,12 +36,18 @@ The plugin is designed as a drop-in tool for game developers. Once integrated, i
     \item \textbf{LLM Mode Selection and automatic fallback}: Developers choose between local inference or cloud-based API at setup time based on their project requirements. Also when cloud API are unavailable it also provide a fallback to local model
         
     \item \textbf{Blueprint Event Integration}: The plugin fires a Blueprint event with parsed parameter values, allowing developers to handle character application in their own way.
+    
+    \item \textbf{Character relative generation}: Developer can generate character's relative base from user character such as mother, father, grandparent of the character, which can increase immersiveness of the game
 \end{enumerate}
 
 \subsubsection{For Players (indirectly)}
 \begin{enumerate}
 
     \item \textbf{Character creation from natural language}: Players describe their desired character appearance in plain text instead of manually adjusting sliders and numerical values. Character decription are constructed into prompt then interpreted result from LLM and apply tp the model automatically
+
+    \item \textbf{Iterative creation}: After player completely create character player are able to iteratively refine their character by prompt, such as "Make character nose more pointy" and character will change base on user prompt. If user don't satisfy with the result they also able to revert change to previous state of the character.
+
+    \item  \textbf{Character registry}: User can save their create character with prompt history that they have made previously which they can continue edit their character 
 
     \item \textbf{Flexible Description Style}: The plugin accepts both explicit descriptions and implied or nuanced expressions.
 \end{enumerate}
